@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Tee Times</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+</head>
+
+<body>
+    <form action="#" method="post">
+        <input type="date" name="user-date">
+
+        <label for="num-players">Number of Players:
+            <select name="num-players" id="num-players">
+                <option value="0">0 (Any)</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </label>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <div style="display:block; width:100%;">      
+        {% for title, data in tables.items() %}
+            <div style="width:33%; display: inline-block;">
+                <h1>{{ title }}</h1>
+                <p>{{ data|safe }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    
+</body>
+
+</html>
