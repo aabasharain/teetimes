@@ -1,0 +1,2 @@
+# Tee Times
+This project's aim is to create a web scraper for various Bay Area golf course tee times. Additionally, I would like to create a web interface to make the user experience easy. The final web page could include an HTML calendar to select the date, checkboxes for each golf course the user is interested in, and a drop down for how many players. After the user enters the relevant information the page would update with a table of tee times.
