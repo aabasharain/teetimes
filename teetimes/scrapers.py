@@ -42,7 +42,6 @@ class MonarchBay(Scraper):
         tee_times = None
         if results is not None:
             for result in results:
-                print(f"mb {type(result)} - {dict}")
                 if result is not None and type(result) is dict:
                     # date and time comes out from scrape as YYYY-MM-DD HH:MM as a string
                     hour, minute = [int(x) for x in str(result['time']).split()[1].split(":")]
@@ -75,7 +74,6 @@ class CoricaPark(Scraper):
         tee_times = None
         if results is not None:
             for result in results:
-                print(f"cp {type(result)} - {dict}")
                 if result is not None and type(result) is dict:
                     date_and_time = datetime(self._date.year, self._date.month,
                                             self._date.day,
@@ -105,7 +103,6 @@ class LasPositas(Scraper):
         tee_times = None
         if results is not None:
             for result in results:
-                print(f"lp {type(result)} - {dict}")
                 if result is not None and type(result) is dict and not result["out_of_capacity"]:
                     hour, min = [int(x) for x in result['start_time'].split(":")]
                     date_and_time = datetime(self._date.year, self._date.month, 
