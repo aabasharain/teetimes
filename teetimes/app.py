@@ -1,14 +1,16 @@
 from flask import Flask, request, render_template, session, redirect, url_for
 from teetimes.scrapers import MonarchBay, CoricaPark, LasPositas
 from datetime import datetime
+from teetimes import app
 import numpy as np
 import pandas as pd
 
-
-app = Flask(__name__)
-
-@app.route('/', methods=("POST", "GET"))
+@app.route('/')
 def home():
+    return render_template('index.html')
+
+@app.route('/teetimes', methods=("POST", "GET"))
+def tee_times():
     if request.method == "POST":
         date = datetime.strptime(request.form["user-date"], '%Y-%m-%d')
         num_players = int(request.form["num-players"])
@@ -26,7 +28,7 @@ def home():
         "Las Positas": lp.tee_times.to_html(classes='data')
     }
     
-    return render_template('home.html', tables=html_tables)# mb_table.to_html(classes='data')])#, titles=data.columns.values)#data.columns.values) # to_html(classes='data')], titles=df.columns.values)
+    return render_template('teetimes.html', tables=html_tables)# mb_table.to_html(classes='data')])#, titles=data.columns.values)#data.columns.values) # to_html(classes='data')], titles=df.columns.values)
     # else:
     #     return render_template('home.html', tables={})#, titles="None Available")
 
