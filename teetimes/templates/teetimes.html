@@ -10,8 +10,14 @@
 <body>
     <h1>Tee Times</h1>
     <form action="#" method="post">
-        <input type="date" name="user-date">
+        
+        <p>
+        <label for="user-date">Date: 
+            <input type="date" name="user-date">
+        </label>
+        </p>
 
+        <p>
         <label for="num-players">Number of Players:
             <select name="num-players" id="num-players">
                 <option value="0">0 (Any)</option>
@@ -21,8 +27,11 @@
                 <option value="4">4</option>
             </select>
         </label>
+        </p>
 
+        <p>
         <input type="submit" value="Submit">
+        </p>
     </form>
 
     <div style="display:block; width:100%;">      
