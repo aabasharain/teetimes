@@ -5,6 +5,16 @@ from teetimes import app
 import numpy as np
 import pandas as pd
 
+app = Flask(__name__)
+
+try:
+    with open('/etc/config.json') as config_file:
+        config = json.load(config_file)
+
+    app.config['SECRET_KEY'] = config['SECRET_KEY']
+except Exception as e:
+    print('no secret key found')
+
 @app.route('/')
 def home():
     return render_template('index.html')
