@@ -13,8 +13,12 @@ with open('/etc/config.json') as config_file:
 
 app.config['SECRET_KEY'] = config['SECRET_KEY']
 
-@app.route('/', methods=("POST", "GET"))
+@app.route('/')
 def home():
+    return render_template('index.html')
+
+@app.route('/teetimes', methods=("POST", "GET"))
+def tee_times():
     if request.method == "POST":
         date = datetime.strptime(request.form["user-date"], '%Y-%m-%d')
         num_players = int(request.form["num-players"])
@@ -32,7 +36,7 @@ def home():
         "Las Positas": lp.tee_times.to_html(classes='data')
     }
     
-    return render_template('home.html', tables=html_tables)
+    return render_template('teetimes.html', tables=html_tables)
 
 if __name__ == "__main__":
     app.run()

@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Tee Times</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="" />
-</head>
+{% extends "base.html" %}
 
 <body>
+    <h1>Tee Times</h1>
     <form action="#" method="post">
         <input type="date" name="user-date">
 
@@ -27,7 +21,7 @@
     <div style="display:block; width:100%;">      
         {% for title, data in tables.items() %}
             <div style="width:33%; display: inline-block;">
-                <h1>{{ title }}</h1>
+                <h2>{{ title }}</h2>
                 <p>{{ data|safe }}</p>
             </div>
         {% endfor %}
