@@ -22,7 +22,10 @@ def home():
 @app.route('/teetimes', methods=("POST", "GET"))
 def tee_times():
     if request.method == "POST":
-        date = datetime.strptime(request.form["user-date"], '%Y-%m-%d')
+        try:
+            date = datetime.strptime(request.form["user-date"], '%Y-%m-%d')
+        except ValueError as e:
+            date = datetime.now()
         num_players = int(request.form["num-players"])
     elif request.method == "GET":
         date = datetime(2022, 10, 22)
