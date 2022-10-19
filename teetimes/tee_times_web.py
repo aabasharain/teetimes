@@ -7,10 +7,6 @@ import pandas as pd
 
 app = Flask(__name__)
 
-df = pd.DataFrame({'A': [0, 1, 2, 3, 4],
-                   'B': [5, 6, 7, 8, 9],
-                   'C': ['a', 'b', 'c--', 'd', 'e']})
-
 @app.route('/', methods=("POST", "GET"))
 def home():
     if request.method == "POST":
@@ -33,6 +29,7 @@ def home():
     return render_template('home.html', tables=html_tables)# mb_table.to_html(classes='data')])#, titles=data.columns.values)#data.columns.values) # to_html(classes='data')], titles=df.columns.values)
     # else:
     #     return render_template('home.html', tables={})#, titles="None Available")
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

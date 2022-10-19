@@ -40,17 +40,20 @@ class MonarchBay(Scraper):
         request = requests.get(f"{base_url}{query_url}")
         results = (json.loads(request.text))
         tee_times = None
-        for result in results:
-            # date and time comes out from scrape as YYYY-MM-DD HH:MM as a string
-            hour, minute = [int(x) for x in str(result['time']).split()[1].split(":")]
-            date_and_time = datetime(self._date.year, self._date.month,
-                                     self._date.day, hour=hour, minute=minute)
-            new_tee_time = TeeTime(date_and_time, result['available_spots'],
-                                   result['green_fee'], result['cart_fee'])
-            if tee_times is None:
-                tee_times = pd.DataFrame(new_tee_time.tee_time_table)
-            else:
-                tee_times = pd.concat([tee_times, new_tee_time.tee_time_table], ignore_index=True)
+        if results is not None:
+            for result in results:
+                print(f"mb {type(result)} - {dict}")
+                if result is not None and type(result) is dict:
+                    # date and time comes out from scrape as YYYY-MM-DD HH:MM as a string
+                    hour, minute = [int(x) for x in str(result['time']).split()[1].split(":")]
+                    date_and_time = datetime(self._date.year, self._date.month,
+                                            self._date.day, hour=hour, minute=minute)
+                    new_tee_time = TeeTime(date_and_time, result['available_spots'],
+                                        result['green_fee'], result['cart_fee'])
+                    if tee_times is None:
+                        tee_times = pd.DataFrame(new_tee_time.tee_time_table)
+                    else:
+                        tee_times = pd.concat([tee_times, new_tee_time.tee_time_table], ignore_index=True)
 
         return tee_times
 
@@ -72,18 +75,20 @@ class CoricaPark(Scraper):
         tee_times = None
         if results is not None:
             for result in results:
-                date_and_time = datetime(self._date.year, self._date.month,
-                                         self._date.day,
-                                         hour=result["TeeTimeDisplay"],
-                                         minute=0)
-                new_tee_time = TeeTime(date_and_time,
-                                       result["PlayersAvailable"],
-                                       result["PriceMin"], 0)
-                if tee_times is None:
-                    tee_times = pd.DataFrame(new_tee_time.tee_time_table)
-                else:
-                    tee_times = pd.concat([tee_times, new_tee_time.tee_time_table],
-                                           ignore_index=True)
+                print(f"cp {type(result)} - {dict}")
+                if result is not None and type(result) is dict:
+                    date_and_time = datetime(self._date.year, self._date.month,
+                                            self._date.day,
+                                            hour=result["TeeTimeDisplay"],
+                                            minute=0)
+                    new_tee_time = TeeTime(date_and_time,
+                                        result["PlayersAvailable"],
+                                        result["PriceMin"], 0)
+                    if tee_times is None:
+                        tee_times = pd.DataFrame(new_tee_time.tee_time_table)
+                    else:
+                        tee_times = pd.concat([tee_times, new_tee_time.tee_time_table],
+                                            ignore_index=True)
 
         return tee_times
 
@@ -98,18 +103,20 @@ class LasPositas(Scraper):
         request = requests.get(f"{base_url}{query_url}")
         results = json.loads(request.text)
         tee_times = None
-        for result in results:
-            if result is not None and not result["out_of_capacity"]:
-                hour, min = [int(x) for x in result['start_time'].split(":")]
-                date_and_time = datetime(self._date.year, self._date.month, 
-                                         self._date.day, hour=hour, minute=min)
-                new_tee_time = TeeTime(date_and_time, self._num_players, 
-                                       result["green_fees"][0]["green_fee"], 0)
-                if tee_times is None:
-                    tee_times = pd.DataFrame(new_tee_time.tee_time_table)
-                else:
-                    tee_times = pd.concat([tee_times,
-                                           new_tee_time.tee_time_table],
-                                           ignore_index=True)
+        if results is not None:
+            for result in results:
+                print(f"lp {type(result)} - {dict}")
+                if result is not None and type(result) is dict and not result["out_of_capacity"]:
+                    hour, min = [int(x) for x in result['start_time'].split(":")]
+                    date_and_time = datetime(self._date.year, self._date.month, 
+                                            self._date.day, hour=hour, minute=min)
+                    new_tee_time = TeeTime(date_and_time, self._num_players, 
+                                        result["green_fees"][0]["green_fee"], 0)
+                    if tee_times is None:
+                        tee_times = pd.DataFrame(new_tee_time.tee_time_table)
+                    else:
+                        tee_times = pd.concat([tee_times,
+                                            new_tee_time.tee_time_table],
+                                            ignore_index=True)
 
         return tee_times
