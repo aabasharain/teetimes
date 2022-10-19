@@ -28,8 +28,8 @@ def tee_times():
             date = datetime.now()
         num_players = int(request.form["num-players"])
     elif request.method == "GET":
-        date = datetime(2022, 10, 22)
-        num_players = 0
+        date = datetime.now()
+        num_players = 4
 
     mb = MonarchBay(date, num_players)
     cp = CoricaPark(date, num_players)
