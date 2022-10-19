@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, session, redirect, url_for
 from teetimes.scrapers import MonarchBay, CoricaPark, LasPositas
 from datetime import datetime
-from teetimes import app
+import json
 import numpy as np
 import pandas as pd
 
