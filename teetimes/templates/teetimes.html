@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>abasht</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="" />
+    <title>abasht</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
 </head>
 
 <body>
     <h1>Tee Times</h1>
     <form action="#" method="post">
-        
+
         <p>
-        <label for="user-date">Date: 
-            <input type="date" name="user-date">
-        </label>
+            <label for="user-date">Date:
+                <input type="date" name="user-date" value="{{ date }}">
+            </label>
         </p>
 
         <p>
-        <label for="num-players">Number of Players:
-            <select name="num-players" id="num-players">
-                <option value="0">0 (Any)</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-        </label>
+            <label for="num-players">Number of Players:
+                <select name="num-players" id="num-players">
+                    <option value="0">0 (Any)</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </label>
         </p>
 
         <p>
-        <input type="submit" value="Submit">
+            <input type="submit" value="Submit">
         </p>
     </form>
 
-    <div style="display:block; width:100%;">      
+    <div style="display:block; width:100%;">
         {% for title, data in tables.items() %}
-            <div style="width:33%; display: inline-block;">
-                <h2>{{ title }}</h2>
-                <p>{{ data|safe }}</p>
-            </div>
+        <div style="width:33%; display: inline-block;">
+            <h2>{{ title }}</h2>
+            <p>{{ data|safe }}</p>
+        </div>
         {% endfor %}
     </div>
-    
+
 </body>
 
 </html>

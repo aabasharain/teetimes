@@ -8,22 +8,24 @@ import pandas as pd
 app = Flask(__name__)
 
 try:
-    with open('/etc/config.json') as config_file:
+    with open("/etc/config.json") as config_file:
         config = json.load(config_file)
 
-    app.config['SECRET_KEY'] = config['SECRET_KEY']
+    app.config["SECRET_KEY"] = config["SECRET_KEY"]
 except Exception as e:
-    print('no secret key found')
+    print("no secret key found")
 
-@app.route('/')
+
+@app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/teetimes', methods=("POST", "GET"))
+
+@app.route("/teetimes", methods=("POST", "GET"))
 def tee_times():
     if request.method == "POST":
         try:
-            date = datetime.strptime(request.form["user-date"], '%Y-%m-%d')
+            date = datetime.strptime(request.form["user-date"], "%Y-%m-%d")
         except ValueError as e:
             date = datetime.now()
         num_players = int(request.form["num-players"])
@@ -36,15 +38,17 @@ def tee_times():
     lp = LasPositas(date, num_players)
 
     html_tables = {
-        "Monarch Bay": mb.tee_times.to_html(classes='data'),
-        "Corica Park": cp.tee_times.to_html(classes='data'),
-        "Las Positas": lp.tee_times.to_html(classes='data')
+        "Monarch Bay": mb.tee_times.to_html(classes="data"),
+        "Corica Park": cp.tee_times.to_html(classes="data"),
+        "Las Positas": lp.tee_times.to_html(classes="data"),
     }
-    
-    return render_template('teetimes.html', tables=html_tables)# mb_table.to_html(classes='data')])#, titles=data.columns.values)#data.columns.values) # to_html(classes='data')], titles=df.columns.values)
+
+    return render_template(
+        "teetimes.html", tables=html_tables, date=date
+    )  # mb_table.to_html(classes='data')])#, titles=data.columns.values)#data.columns.values) # to_html(classes='data')], titles=df.columns.values)
     # else:
     #     return render_template('home.html', tables={})#, titles="None Available")
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=True)
