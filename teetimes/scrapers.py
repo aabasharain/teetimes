@@ -68,9 +68,11 @@ class CoricaPark(Scraper):
         #  "holdAndReturnOne":False}
         post_request = {"date":f"{self._date.month}/{self._date.day}/{self._date.year}","numHoles":0,"numPlayers":4,"startTime":"5:00 AM","endTime":"7:00 PM","courseIDs":[6063],"holdAndReturnOne":False}
 
-        request = requests.post(base_url, post_request)
-
-        results = json.loads(request.text).get("Reservations", None)
+        request = requests.post(base_url, post_request, timeout=10)
+        try:
+            results = json.loads(request.text).get("Reservations", None)
+        except:
+            results = None
         tee_times = None
         if results is not None:
             for result in results:
